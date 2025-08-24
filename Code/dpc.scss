@@ -1,0 +1,36 @@
+
+.devinux{
+    .flex {display:flex;
+        &.col , 
+        &.cols , 
+        &.column ,
+        &.columns {
+            flex-flow: row;
+        }
+        &.row , 
+        &.rows {
+            flex-flow: column;
+        }
+        & > .start { justify-self: flex-start; }
+        & > .end { justify-self: flex-end; }
+        & > .center { flex:1; }
+    } 
+    &.persian-calendar{ width:300px; display: inline-block; direction: rtl;
+        & > .calendar { 
+            .control { 
+                button {
+                    display: flex; flex-flow: column;
+                    i { font-size: 24px; display: flex; justify-content: center; align-items: center; font-style: normal;}
+                    span{ font-size: smaller;}
+                }
+                .date { display: flex; justify-content: center; align-items: center; }
+            }
+            .center.month { font-size: 0px;
+                label{ display: inline-block; width:calc(100% / 7); font-size: small;  display: inline-flex; justify-content: center; align-items: center; padding:10px 0px; cursor: pointer;
+                    &.today { color:red;}
+                    &.header{ background-color: rgba(0,0,0,0.1);}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,61 @@
+.devinux .flex {
+  display: flex;
+}
+.devinux .flex.col, .devinux .flex.cols, .devinux .flex.column, .devinux .flex.columns {
+  flex-flow: row;
+}
+.devinux .flex.row, .devinux .flex.rows {
+  flex-flow: column;
+}
+.devinux .flex > .start {
+  justify-self: flex-start;
+}
+.devinux .flex > .end {
+  justify-self: flex-end;
+}
+.devinux .flex > .center {
+  flex: 1;
+}
+.devinux.persian-calendar {
+  width: 300px;
+  display: inline-block;
+  direction: rtl;
+}
+.devinux.persian-calendar > .calendar .control button {
+  display: flex;
+  flex-flow: column;
+}
+.devinux.persian-calendar > .calendar .control button i {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+}
+.devinux.persian-calendar > .calendar .control button span {
+  font-size: smaller;
+}
+.devinux.persian-calendar > .calendar .control .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.devinux.persian-calendar > .calendar .center.month {
+  font-size: 0px;
+}
+.devinux.persian-calendar > .calendar .center.month label {
+  display: inline-block;
+  width: 14.2857142857%;
+  font-size: small;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+  cursor: pointer;
+}
+.devinux.persian-calendar > .calendar .center.month label.today {
+  color: red;
+}
+.devinux.persian-calendar > .calendar .center.month label.header {
+  background-color: rgba(0, 0, 0, 0.1);
+}/*# sourceMappingURL=dpc.css.map */
