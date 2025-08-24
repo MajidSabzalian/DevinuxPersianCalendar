@@ -48,6 +48,7 @@ class DevinuxPersianCalendar extends PublicApi {
 		position: "abs", // fix
 		autoPosition: true,
 		calendar: "persian", //'gregorian'
+        valueSetter : (d)=>`${d.year}/${d.month}/${d.day}`,
 		formatter: (v) => v,
 		onSelect: (d) => {},
 		onSet: (d) => {},
@@ -56,10 +57,10 @@ class DevinuxPersianCalendar extends PublicApi {
 		min: new Date(2000, 0, 1),
 		max: new Date(2100, 0, 1),
 		selectionMode: "range", // 'single'
-		yearUp: `<button><i>▼</i><span>سال بعد</span></button>`,
-		yearDown: `<button><i>▲</i><span>سال قبل</span></button>`,
-		monthUp: `<button><i>◄</i><span>ماه بعد</span></button>`,
-		monthDown: `<button><i>►</i><span>ماه قبل</span></button>`,
+		yearUp: `<label class="btn"><i>▼</i><span>سال بعد</span></label>`,
+		yearDown: `<label class="btn"><i>▲</i><span>سال قبل</span></label>`,
+		monthUp: `<label class="btn"><i>◄</i><span>ماه بعد</span></label>`,
+		monthDown: `<label class="btn"><i>►</i><span>ماه قبل</span></label>`,
 	};
 	constructor() {
 		super();
@@ -75,6 +76,8 @@ class DevinuxPersianCalendar extends PublicApi {
 		this.root = $(this.e).closest(`.persian-calendar`);
 		this.e.addClass(`hide`).attr({ type: "text" });
 		this.#print();
+        $(document).click((e)=>{ console.log(e,$(e.target).closest(`.persian-calendar`)); if ($(e.target).closest(`.persian-calendar`).length == 0) $(this.root).removeClass('show'); })
+
 	}
 	#print() {
 		let o = { ...DevinuxPersianCalendar.option, ...{} };
@@ -82,6 +85,8 @@ class DevinuxPersianCalendar extends PublicApi {
         let fd = days[0];
         if (fd.dayIndex > 0 && fd.dayIndex < 6) days = [...new Array((fd.dayIndex+1)).fill(undefined).map(m=>m), ...days];
         $(this.root).find('.calendar').remove();
+        
+
 		$(this.root).append(`
             <div class="calendar flex fix rows">
                 <div class="start control flex cols">
@@ -106,7 +111,7 @@ class DevinuxPersianCalendar extends PublicApi {
             c.append(`<label class="header">${h}</label>`)
         })
         days.forEach((m , i)=>{
-            let l = $(`<label data-week="${Math.ceil(i%7)}" class="day"></label>`)
+            let l = $(`<label data-week="${(Math.floor(i/7)+1)}" class="day"></label>`)
             if (m == undefined)
             {
                 l.addClass('')
@@ -118,16 +123,19 @@ class DevinuxPersianCalendar extends PublicApi {
                 l.html((o && o.formatter(m.day)) || m.day);
                 c.append(l);
                 l.off().click(() => {
-                    $(this.e).val(`${m.year}/${m.month}/${m.day}`)
-                    if (o && o.onSelect) o.onSelect(m);
+                    let value  = o && o.valueSetter && o.valueSetter(m) || `${m.year}/${m.month}/${m.day}`;
+                    $(this.e).val(o && o.formatter && o.formatter(value) || value)
+                    if (o && o.onSelect) o.onSelect(m , value);
                 })
             }
         });
         
-        $(this.root).find('.year-up').off().click(()=>{ this.#nextYear(); })
-        $(this.root).find('.year-down').off().click(()=>{ this.#prevYear(); })
-        $(this.root).find('.month-up').off().click(()=>{ this.#nextMonth(); })
-        $(this.root).find('.month-down').off().click(()=>{ this.#prevMonth(); })
+        $(this.root).find('.year-up').click(()=>{ this.#nextYear(); })
+        $(this.root).find('.year-down').click(()=>{ this.#prevYear(); })
+        $(this.root).find('.month-up').click(()=>{ this.#nextMonth(); })
+        $(this.root).find('.month-down').click(()=>{ this.#prevMonth(); })
+        $(this.root).off().click(e=>{ $(this.root).addClass('show'); })
+        $(this.e).off().focusin(()=>{ $(this.root).addClass('show'); })
     }
 	#open() {}
     #nextMonth(){ this.year = this.month  == 12 ? this.year + 1 : this.year; this.month = this.month  == 12 ? 1 : this.month + 1; this.#print(); }

@@ -20,19 +20,30 @@
   width: 300px;
   display: inline-block;
   direction: rtl;
+  position: relative;
 }
-.devinux.persian-calendar > .calendar .control button {
+.devinux.persian-calendar.show > .calendar {
+  top: 100%;
+  left: 0%;
+  display: block;
+  position: absolute;
+}
+.devinux.persian-calendar > .calendar {
+  display: none;
+}
+.devinux.persian-calendar > .calendar .control label.btn {
+  pointer-events: none;
   display: flex;
   flex-flow: column;
 }
-.devinux.persian-calendar > .calendar .control button i {
+.devinux.persian-calendar > .calendar .control label.btn i {
   font-size: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-style: normal;
 }
-.devinux.persian-calendar > .calendar .control button span {
+.devinux.persian-calendar > .calendar .control label.btn span {
   font-size: smaller;
 }
 .devinux.persian-calendar > .calendar .control .date {

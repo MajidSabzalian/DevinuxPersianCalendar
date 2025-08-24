@@ -15,10 +15,13 @@
         & > .end { justify-self: flex-end; }
         & > .center { flex:1; }
     } 
-    &.persian-calendar{ width:300px; display: inline-block; direction: rtl;
-        & > .calendar { 
+    &.persian-calendar{ width:300px; display: inline-block; direction: rtl; position: relative;
+        &.show{
+            & > .calendar { top : 100%; left:0%; display: block; position: absolute;}
+        }
+        & > .calendar { display: none;
             .control { 
-                button {
+                label.btn { pointer-events: none;
                     display: flex; flex-flow: column;
                     i { font-size: 24px; display: flex; justify-content: center; align-items: center; font-style: normal;}
                     span{ font-size: smaller;}
