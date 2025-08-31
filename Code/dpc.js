@@ -77,6 +77,7 @@ class DevinuxPersianCalendar extends PublicApi {
 		monthUp:    `<label class="btn"><i class="fal fa-chevron-left"></i></label>`,
 		monthDown:  `<label class="btn"><i class="fal fa-chevron-right"></i></label>`,
 		today:      `<label class="btn"><i class="fal fa-check"></i><span>امروز</span></label>`,
+		showButton: `<label class="btn end"><i class="fad fa-calendar"></i></label>`,
         width : `300px`,
         dateEditor : true , 
         timeEditor : true ,
@@ -111,7 +112,7 @@ class DevinuxPersianCalendar extends PublicApi {
         this.root = __dev(this.e).closest(`.persian-calendar`);
         this.root.off().mousedown(e => { this.#open(); });
         if (o.showOnButton == true){
-            this.root.append(`<label class="end"><i class="fal fa-calendar"></i></label>`);
+            this.root.append(o && o.showButton || `<label class="end"><i class="fal fa-calendar"></i></label>`);
         }
 
 		this.e.addClass(`hide`).attr({ type: "text" });

@@ -1,4 +1,5 @@
 @import url('../Fonts/faw/css/all.min.css');
+@import url('https://cdn.sqp.ir/Plugins/fonts/fonts.css');
 :root{
     --dev-bg-color : #FFF;
     --dev-bg-color1 : #EEE;
@@ -74,8 +75,10 @@
             }
             .menu:has(*) {
                 padding: 5px;
-                label {padding: 5px; display: flex; flex-flow: row; 
-                &:hover { background-color: var(--dev-bg-color1);} cursor: pointer; }
+                label {padding: 5px; display: flex; flex-flow: row; font-size: var(--dev-font-size); gap:10px; font-weight: normal;
+                    &:hover { background-color: var(--dev-bg-color1);} cursor: pointer;     
+                    i { display: flex; justify-content: center; align-items: center;}
+                }
             }        
         }
     }
