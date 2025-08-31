@@ -1,5 +1,24 @@
+@import url('../Fonts/faw/css/all.min.css');
+:root{
+    --dev-bg-color : #FFF;
+    --dev-bg-color1 : #EEE;
+    --dev-bg-color2 : #DDD;
+    --dev-bg-color3 : #CCC;
+    --dev-fg-color : #333;
+    --dev-bg-harm : #E00;
+    --dev-bg-harm1 : orange;
+    --dev-fg-harm : #FFF;
+    --dev-border-color : rgba(0,0,0,0.1);
+    --dev-border-width : 1px;
+    --dev-border-style : solid;
+    --dev-border : var(--dev-border-width) var(--dev-border-style) var(--dev-border-color);
+    --dev-font-size : small;
+}
 
 .devinux{
+    * {box-sizing: border-box;}
+     font-family: iran-sans;
+     font-weight: normal;
     .flex {display:flex;
         &.col , 
         &.cols , 
@@ -15,25 +34,41 @@
         & > .end { justify-self: flex-end; }
         & > .center { flex:1; }
     } 
-    &.persian-calendar{ width:300px; display: inline-block; direction: rtl; position: relative;
+    &.persian-calendar{ width:350px; display: inline-block; direction: rtl; position: relative; 
+        & > input{ background-color: transparent; border-radius: 0; border: 0; width: 100%; display: block; padding:5px; text-align: start; direction: ltr; }
         &.show{
-            & > .calendar { top : 100%; left:0%; display: block; position: absolute;}
+            & > .calendar { display: block; position: fixed;
+                background-color: var(--dev-bg-color); border:var(--dev-border);
+            }
         }
         & > .calendar { display: none;
             .control { 
-                label.btn { pointer-events: none;
+                label.btn {  padding:10px; cursor: pointer;
                     display: flex; flex-flow: column;
-                    i { font-size: 24px; display: flex; justify-content: center; align-items: center; font-style: normal;}
+                    i { font-size: 16px; display: flex; justify-content: center; align-items: center;}
                     span{ font-size: smaller;}
                 }
                 .date { display: flex; justify-content: center; align-items: center; }
             }
             .center.month { font-size: 0px;
                 label{ display: inline-block; width:calc(100% / 7); font-size: small;  display: inline-flex; justify-content: center; align-items: center; padding:10px 0px; cursor: pointer;
-                    &.today { color:red;}
-                    &.header{ background-color: rgba(0,0,0,0.1);}
+                    &.day:hover { background-color: var(--dev-bg-color2);}
+                    &[data-day-index="5"]{background-color: rgba(255,0,0,0.1);}
+                    &.today { background-color: var(--dev-bg-harm); color:var(--dev-fg-harm);}
+                    &.header{ background-color: var(--dev-bg-color1);}
+                    &.selected { background-color: var(--dev-bg-harm1); color:var(--dev-fg-harm);}
                 }
             }
+            $mp:5px;
+            .times{ gap:$mp; display: flex; flex-flow: row; padding:$mp; border: var(--dev-border); border-width: 1px 0px; direction: ltr;
+                strong{ display: block; text-align: center; font-size: var(--dev-font-size); font-weight: normal; }
+                input{ appearance: none; width: 100%; border: 0px; text-align: center; padding:$mp;}
+            }
+            .menu:has(*) {
+                padding: 5px;
+                label {padding: 5px; display: flex; flex-flow: row; 
+                &:hover { background-color: var(--dev-bg-color1);} cursor: pointer; }
+            }        
         }
     }
 }
