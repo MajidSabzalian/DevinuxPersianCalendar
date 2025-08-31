@@ -1,3 +1,6 @@
+let __dev = (obj)=>{
+    return $(obj);
+}
 class PublicApi{
     constructor() {
         this.Api = PublicApi.Api;
@@ -77,6 +80,8 @@ class DevinuxPersianCalendar extends PublicApi {
         width : `300px`,
         dateEditor : true , 
         timeEditor : true ,
+        showOnFocus : true ,
+        showOnButton : true
 	};
 	constructor() {
 		super();
@@ -99,11 +104,15 @@ class DevinuxPersianCalendar extends PublicApi {
         return this;
     }
 	init(element) {
-        this.e = $(element);
+        let o = this.#getOption();
+        this.e = __dev(element);
 		this.e.wrap(`<div class="devinux persian-calendar"></div>`);
 
-        this.root = $(this.e).closest(`.persian-calendar`);
+        this.root = __dev(this.e).closest(`.persian-calendar`);
         this.root.off().mousedown(e => { this.#open(); });
+        if (o.showOnButton == true){
+            this.root.append(`<label class="end"><i class="fal fa-calendar"></i></label>`);
+        }
 
 		this.e.addClass(`hide`).attr({ type: "text" });
         this.e.off().focusin(() => { this.#checkFirstValue(); this.#open(); });
@@ -113,14 +122,14 @@ class DevinuxPersianCalendar extends PublicApi {
         });
 
         //this.#print();
-        $(document).mouseup((e)=>{ 
-            let c = $(e.target).closest(`.persian-calendar`);
-            if (c.length == 0 && !$(e.target).is(`.persian-calendar`)) this.#close();
+        __dev(document).mouseup((e)=>{ 
+            let c = __dev(e.target).closest(`.persian-calendar`);
+            if (c.length == 0 && !__dev(e.target).is(`.persian-calendar`)) this.#close();
         });
         return this;
 	}
     #checkFirstValue(){
-        let ev = $(this.e).val().toString()
+        let ev = __dev(this.e).val().toString()
         let cd = DevinuxPersianCalendarDay.fromDate();
         if (ev.trim().length <= 0) ev = `${cd.year}/${cd.month}/${cd.day} ${cd.hour}:${cd.minute}:${cd.second}`;
         let data = ev.split(/\D+/).filter(Boolean);
@@ -147,10 +156,10 @@ class DevinuxPersianCalendar extends PublicApi {
         let days = DevinuxPersianCalendar.getShamsiMonthDays( DevinuxPersianCalendar.jalaliToGregorian(this.year,this.month ,1).getDate());
         let fd = days[0];
         if (fd.dayIndex > 0 && fd.dayIndex < 6) days = [...new Array((fd.dayIndex+1)).fill(undefined).map(m=>m), ...days];
-        if ($(this.root).find('.calendar').length == 0){
-            $(this.root).append(`<div class="calendar flex fix rows" style="width: ${o && o.width ||'300px'}"></div>`)
+        if (__dev(this.root).find('.calendar').length == 0){
+            __dev(this.root).append(`<div class="calendar flex fix rows" style="width: ${o && o.width ||'300px'}"></div>`)
         }
-        let cld = $(this.root).find('.calendar')
+        let cld = __dev(this.root).find('.calendar')
         cld.html(``)
 		cld.append(`
             ${o && o.dateEditor == true ? `
@@ -187,13 +196,13 @@ class DevinuxPersianCalendar extends PublicApi {
                 </div>
             ` : ``}
         `);
-        let c = $(this.root).find('.calendar > .center');
+        let c = __dev(this.root).find('.calendar > .center');
         let weeks = 'شیدسچپج'.split(``)
         weeks.forEach(h => {
             c.append(`<label class="header">${h}</label>`)
         })
         days.forEach((m , i)=>{
-            let l = $(`<label data-day-index="${m && m.dayIndex || ''}" data-week="${(Math.floor(i/7)+1)}" class="day"></label>`)
+            let l = __dev(`<label data-day-index="${m && m.dayIndex || ''}" data-week="${(Math.floor(i/7)+1)}" class="day"></label>`)
             if (m == undefined)
             {
                 l.addClass('')
@@ -218,37 +227,44 @@ class DevinuxPersianCalendar extends PublicApi {
             }
         });
         
-        $(this.root).find('.cmb-month').off().change((e)=>{ this.#changeMonth($(e.currentTarget).val());  })
-        $(this.root).find('.cmb-year').off().change((e)=>{ this.#changeYear($(e.currentTarget).val()); })
-        $(this.root).find('.year-up').off().mousedown(()=>{ this.#nextYear(); })
-        $(this.root).find('.year-down').off().mousedown(()=>{ this.#prevYear(); })
-        $(this.root).find('.month-up').off().mousedown(()=>{ this.#nextMonth(); })
-        $(this.root).find('.month-down').off().mousedown(()=>{ this.#prevMonth(); })
-        $(this.root).find('.btn-today').off().mousedown(()=>{ this.#today(); })
-        $(this.root).find('.times .h').off().change((e)=>{ if (e.currentTarget.validity.valid) this.#changeHour(e.currentTarget.value); })
-        $(this.root).find('.times .m').off().change((e)=>{ if (e.currentTarget.validity.valid) this.#changeMinute(e.currentTarget.value); })
-        $(this.root).find('.times .s').off().change((e)=>{ if (e.currentTarget.validity.valid) this.#changeSecond(e.currentTarget.value); })
+        __dev(this.root).find('.cmb-month').off().change((e)=>{ this.#changeMonth(__dev(e.currentTarget).val());  })
+        __dev(this.root).find('.cmb-year').off().change((e)=>{ this.#changeYear(__dev(e.currentTarget).val()); })
+        __dev(this.root).find('.year-up').off().mousedown(()=>{ this.#nextYear(); })
+        __dev(this.root).find('.year-down').off().mousedown(()=>{ this.#prevYear(); })
+        __dev(this.root).find('.month-up').off().mousedown(()=>{ this.#nextMonth(); })
+        __dev(this.root).find('.month-down').off().mousedown(()=>{ this.#prevMonth(); })
+        __dev(this.root).find('.btn-today').off().mousedown(()=>{ this.#today(); })
+        __dev(this.root).find('.times .h').off().change((e)=>{ if (e.currentTarget.validity.valid) this.#changeHour(e.currentTarget.value); })
+        __dev(this.root).find('.times .m').off().change((e)=>{ if (e.currentTarget.validity.valid) this.#changeMinute(e.currentTarget.value); })
+        __dev(this.root).find('.times .s').off().change((e)=>{ if (e.currentTarget.validity.valid) this.#changeSecond(e.currentTarget.value); })
     }
     #today(){
         let g = DevinuxPersianCalendarDay.fromDate();
-        $(this.root).find(`.times .h`).val(g.hour).change();
-        $(this.root).find(`.times .m`).val(g.minute).change();
-        $(this.root).find(`.times .s`).val(g.second).change();
-        this.#select(g);
+        __dev(this.root).find(`.times .h`).val(g.hour).change();
+        __dev(this.root).find(`.times .m`).val(g.minute).change();
+        __dev(this.root).find(`.times .s`).val(g.second).change();
+        __dev(this.root).find(`.cmb-year`).val(g.year);
+        __dev(this.root).find(`.cmb-month`).val(g.month);
+        this.selected = g;
+        this.year = g.year;
+        this.month = g.month;
+        this.day = g.day;
+        this.#print();
+        this.#select();
     }
 	#open() { 
-        if (!$(this.root).is('.show')){
-            $(this.root).addClass(`show`); 
+        if (!__dev(this.root).is('.show')){
+            __dev(this.root).addClass(`show`); 
             this.#checkFirstValue();
             this.#print();
         }
-        let rect = $(this.e).get(0).getBoundingClientRect();
-        const vh = $(window).height() / 2 , vw = $(window).width() / 2;
+        let rect = __dev(this.root).get(0).getBoundingClientRect();
+        const vh = __dev(window).height() / 2 , vw = __dev(window).width() / 2;
         const x = (rect.x < vw ? rect.x : rect.x + rect.width);
         const y = (rect.y > vh ? rect.y : rect.y + rect.height);
         const tx = `translateX(${(rect.x > vw ? `-100%` : '0%')})`;
         const ty = `translateY(${(rect.y > vh ? `-100%` : '0%')})`;
-        $(this.root).find(`.calendar`).css({ 'left': `${x}px`, 'top': `${y}px`, 'transform': `${tx} ${ty}` });
+        __dev(this.root).find(`.calendar`).css({ 'left': `${x}px`, 'top': `${y}px`, 'transform': `${tx} ${ty}` });
     }
     #getOption (){
         return { ...DevinuxPersianCalendar.option, ...this.option };
@@ -260,7 +276,7 @@ class DevinuxPersianCalendar extends PublicApi {
         m.minute = this.minute;
         m.second = this.second;
         let value  = o && o.valueSetter && o.valueSetter(m) || `${m.year}/${m.month}/${m.day} ${m.hour}:${m.minute}:${m.second}`;
-        $(this.e).val(value)
+        __dev(this.e).val(value)
         this.selectedDay = m.day;
         this.selectedMonth = m.month;
         this.selectedYear = m.year;
@@ -269,7 +285,7 @@ class DevinuxPersianCalendar extends PublicApi {
             this.#close();
 
     }
-	#close() { $(this.root).removeClass(`show`); }
+	#close() { __dev(this.root).removeClass(`show`); }
     #changeMonth(m){ this.month = Number(m); this.#print(); this.#open(); }
     #changeYear(y){ this.year = Number(y); this.#print(); this.#open(); }
     #changeDay(d){ this.day = Number(d); this.#print(); this.#open(); }
@@ -360,8 +376,7 @@ class DevinuxPersianCalendar extends PublicApi {
         return result;
     }
 }
-
-$(document).ready(()=>{
-    $(`input`).each((i,e) => { new DevinuxPersianCalendar().init(e); });
-    $(`input`).focus();
+__dev(document).ready(()=>{
+    __dev(`input`).each((i,e) => { new DevinuxPersianCalendar().init(e); });
+    __dev(`input`).focus();
 });

@@ -17,7 +17,8 @@
 
 .devinux{
     * {box-sizing: border-box;}
-     font-family: iran-sans;
+    border: var(--dev-border);
+     font-family: iran-sans , iransans,arial, tahoma;
      font-weight: normal;
     .flex {display:flex;
         &.col , 
@@ -34,14 +35,21 @@
         & > .end { justify-self: flex-end; }
         & > .center { flex:1; }
     } 
-    &.persian-calendar{ width:350px; display: inline-block; direction: rtl; position: relative; 
-        & > input{ background-color: transparent; border-radius: 0; border: 0; width: 100%; display: block; padding:5px; text-align: start; direction: ltr; }
-        &.show{
-            & > .calendar { display: block; position: fixed;
-                background-color: var(--dev-bg-color); border:var(--dev-border);
+    &.persian-calendar{ width:350px; display: inline-flex; flex-wrap: nowrap; flex-flow: row; direction: rtl; position: relative;  border-radius: 5px;
+        &:focus-within{
+            border: var(--dev-border-width) var(--dev-border-style) var(--dev-bg-harm);
+        }
+        & , * { transition: all ease .3s;}
+        & > input{ flex:1; background-color: transparent; border-radius: 0; border: 0; width: 100%; display: block; padding:5px; text-align: start; direction: ltr; outline: none; }
+        & > label { justify-self: flex-end; display: flex; justify-content: center; align-items: center;  aspect-ratio: 1/1; width: 32px; font-size: 16px; }
+        &.show{ 
+            & > .calendar {   opacity: 1; pointer-events: unset;
+                
             }
         }
-        & > .calendar { display: none;
+        &:not(.show){ & > .calendar {  scale: 0.8; } }
+
+        & > .calendar { opacity: 0; pointer-events: none; position: fixed;  background-color: var(--dev-bg-color); border:var(--dev-border); border-radius: 5px; overflow: hidden; box-shadow:0px 5px 5px rgba(0,0,0,0.1);
             .control { 
                 label.btn {  padding:10px; cursor: pointer;
                     display: flex; flex-flow: column;
