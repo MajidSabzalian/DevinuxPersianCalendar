@@ -13,11 +13,14 @@
     <script src="./Code/dpc.js"></script>
 </head>
 <body>
-    <input type="text" value=""></input>
+    <div style="position: absolute; top:150px; height:350px; width:100px; overflow: hidden;">
+        <input type="text" value="" />
+    </div>
+    
     <script>
     $(document).ready(()=>{
         $(`input`).each((i,e) => { new DevinuxPersianCalendar().init(e); });
-        $(`input`).eq(1).focus();
+        $(`input`).eq(0).focus();
     });
     </script>
 </body>

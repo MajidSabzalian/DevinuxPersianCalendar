@@ -41,16 +41,12 @@
   flex: 1;
 }
 .devinux.persian-calendar {
-  width: 350px;
   display: inline-flex;
   flex-wrap: nowrap;
   flex-flow: row;
   direction: rtl;
   position: relative;
   border-radius: 5px;
-}
-.devinux.persian-calendar:focus-within {
-  border: var(--dev-border-width) var(--dev-border-style) var(--dev-bg-harm);
 }
 .devinux.persian-calendar, .devinux.persian-calendar * {
   transition: all ease 0.3s;
@@ -76,47 +72,39 @@
   width: 32px;
   font-size: 16px;
 }
-.devinux.persian-calendar.show > .calendar {
-  opacity: 1;
-  pointer-events: unset;
-}
-.devinux.persian-calendar:not(.show) > .calendar {
-  scale: 0.8;
-}
-.devinux.persian-calendar > .calendar {
-  opacity: 0;
-  pointer-events: none;
+.devinux.calendar {
   position: fixed;
   background-color: var(--dev-bg-color);
   border: var(--dev-border);
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  direction: rtl;
 }
-.devinux.persian-calendar > .calendar .control label.btn {
+.devinux.calendar .control label.btn {
   padding: 10px;
   cursor: pointer;
   display: flex;
   flex-flow: column;
 }
-.devinux.persian-calendar > .calendar .control label.btn i {
+.devinux.calendar .control label.btn i {
   font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.devinux.persian-calendar > .calendar .control label.btn span {
+.devinux.calendar .control label.btn span {
   font-size: smaller;
 }
-.devinux.persian-calendar > .calendar .control .date {
+.devinux.calendar .control .date {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.devinux.persian-calendar > .calendar .center.month {
+.devinux.calendar .center.month {
   font-size: 0px;
 }
-.devinux.persian-calendar > .calendar .center.month label {
+.devinux.calendar .center.month label {
   display: inline-block;
   width: 14.2857142857%;
   font-size: small;
@@ -126,24 +114,24 @@
   padding: 10px 0px;
   cursor: pointer;
 }
-.devinux.persian-calendar > .calendar .center.month label.day:hover {
+.devinux.calendar .center.month label.day:hover {
   background-color: var(--dev-bg-color2);
 }
-.devinux.persian-calendar > .calendar .center.month label[data-day-index="5"] {
+.devinux.calendar .center.month label[data-day-index="5"] {
   background-color: rgba(255, 0, 0, 0.1);
 }
-.devinux.persian-calendar > .calendar .center.month label.today {
+.devinux.calendar .center.month label.today {
   background-color: var(--dev-bg-harm);
   color: var(--dev-fg-harm);
 }
-.devinux.persian-calendar > .calendar .center.month label.header {
+.devinux.calendar .center.month label.header {
   background-color: var(--dev-bg-color1);
 }
-.devinux.persian-calendar > .calendar .center.month label.selected {
+.devinux.calendar .center.month label.selected {
   background-color: var(--dev-bg-harm1);
   color: var(--dev-fg-harm);
 }
-.devinux.persian-calendar > .calendar .times {
+.devinux.calendar .times {
   gap: 5px;
   display: flex;
   flex-flow: row;
@@ -152,23 +140,23 @@
   border-width: 1px 0px;
   direction: ltr;
 }
-.devinux.persian-calendar > .calendar .times strong {
+.devinux.calendar .times strong {
   display: block;
   text-align: center;
   font-size: var(--dev-font-size);
   font-weight: normal;
 }
-.devinux.persian-calendar > .calendar .times input {
+.devinux.calendar .times input {
   appearance: none;
   width: 100%;
   border: 0px;
   text-align: center;
   padding: 5px;
 }
-.devinux.persian-calendar > .calendar .menu:has(*) {
+.devinux.calendar .menu:has(*) {
   padding: 5px;
 }
-.devinux.persian-calendar > .calendar .menu:has(*) label {
+.devinux.calendar .menu:has(*) label {
   padding: 5px;
   display: flex;
   flex-flow: row;
@@ -177,10 +165,10 @@
   font-weight: normal;
   cursor: pointer;
 }
-.devinux.persian-calendar > .calendar .menu:has(*) label:hover {
+.devinux.calendar .menu:has(*) label:hover {
   background-color: var(--dev-bg-color1);
 }
-.devinux.persian-calendar > .calendar .menu:has(*) label i {
+.devinux.calendar .menu:has(*) label i {
   display: flex;
   justify-content: center;
   align-items: center;
