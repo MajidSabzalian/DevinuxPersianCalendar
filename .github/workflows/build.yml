@@ -1,4 +1,4 @@
-name: Minify JS and CSS
+name: Minify JS and CSS code
 
 on:
   push:
@@ -9,23 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: check out the repository
+        uses: actions/checkout@v4
 
-      - name: Minify JavaScript
-        uses: nizarmah/auto-minify@v2
+      - name: auto minify the files
+        uses: nizarmah/auto-minify@v3
         with:
-          path: "Code/*.js"       # مسیر فایل‌ها
-          output: "dist"         # مسیر خروجی
+          overwrite: true
+          directory: 'Code'
+          utput: 'dist'
 
-      - name: Minify CSS
-        uses: nizarmah/auto-minify@v2
+      - name: auto commit the minified files
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          path: "Code/*.css"
-          output: "dist"
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: minified
-          path: dist/
+          commit_message: "bot: Add auto minified files"
