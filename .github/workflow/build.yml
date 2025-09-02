@@ -1,0 +1,31 @@
+name: Minify JS and CSS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Minify JavaScript
+        uses: nizarmah/auto-minify@v2
+        with:
+          path: "Code/*.js"       # مسیر فایل‌ها
+          output: "dist"         # مسیر خروجی
+
+      - name: Minify CSS
+        uses: nizarmah/auto-minify@v2
+        with:
+          path: "Code/*.css"
+          output: "dist"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: minified
+          path: dist/
