@@ -77,3 +77,21 @@ new DevinuxPersianCalendarDay(
 )
 DevinuxPersianCalendarDay.fromDate(date = new Date()) => return information from your passed date as [DevinuxPersianCalendarDay]
 ```
+
+structure for DevinuxPersianCalendarDay
+```
+{
+    year = year,                    ◄-- - return number
+    month = month,                  ◄-- - return number
+    day = day,                      ◄-- - return number
+    hour = hour,                    ◄-- - return number
+    minute = minute,                ◄-- - return number
+    second = second,                ◄-- - return number
+    calendar = 'en',                ◄-- - return string
+    dayIndex = [0 - 6],             ◄-- - return number
+    currentDay = true or false,     ◄-- - return boolean
+    monthName = `november`,         ◄-- - return string
+    dayName = `friday`,             ◄-- - return string
+    getDate()                       ◄-- - return JavaScript Date
+}
+```
