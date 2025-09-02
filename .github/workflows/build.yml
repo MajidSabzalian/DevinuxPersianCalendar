@@ -2,7 +2,7 @@ name: Minify JS and CSS code
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 permissions:
   contents: write
@@ -22,7 +22,7 @@ jobs:
         with:
           overwrite: true
           directory: 'Code'
-          utput: 'dist'
+          output: 'dist'
 
       - name: auto commit the minified files
         uses: stefanzweifel/git-auto-commit-action@v5
