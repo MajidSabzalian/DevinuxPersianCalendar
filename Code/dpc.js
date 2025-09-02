@@ -377,7 +377,3 @@ class DevinuxPersianCalendar extends PublicApi {
         return result;
     }
 }
-__dev(document).ready(()=>{
-    __dev(`input`).each((i,e) => { new DevinuxPersianCalendar().init(e); });
-    __dev(`input`).focus();
-});

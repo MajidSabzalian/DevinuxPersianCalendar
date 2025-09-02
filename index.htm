@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./Scripts/jquery-3.7.1.min.js" ></script>
+    <title>Persian Calendar JS Component</title>
+
+    <link rel="stylesheet" href="https://cdn.sqp.ir/Plugins/fonts/fonts.css">
+    <link rel="stylesheet" href="./Fonts/faw/css/all.min.css">
+    <link rel="stylesheet" href="./Code/dpc.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./Code/dpc.js"></script>
 </head>
 <body>
     <input type="text" value=""></input>
-    <script src="./Code/dpc.js"></script>
-    <link rel="stylesheet" href="./Code/dpc.css">
+    <script>
+    $(document).ready(()=>{
+        $(`input`).each((i,e) => { new DevinuxPersianCalendar().init(e); });
+        $(`input`).eq(1).focus();
+    });
+    </script>
 </body>
 </html>
