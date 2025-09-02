@@ -377,3 +377,4 @@ class DevinuxPersianCalendar extends PublicApi {
         return result;
     }
 }
+DevinuxPersianCalendar.option = {}
