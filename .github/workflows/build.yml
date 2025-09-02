@@ -2,7 +2,12 @@ name: Minify JS and CSS code
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   minify:
