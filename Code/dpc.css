@@ -15,12 +15,15 @@
 }
 
 .devinux {
-  border: var(--dev-border);
   font-family: iran-sans, iransans, arial, tahoma;
   font-weight: normal;
 }
-.devinux * {
+.devinux, .devinux * {
   box-sizing: border-box;
+  transition: all ease 0.3s;
+}
+.devinux:not(.no-border) {
+  border: var(--dev-border);
 }
 .devinux .flex {
   display: flex;
@@ -62,6 +65,7 @@
   text-align: start;
   direction: ltr;
   outline: none;
+  color: var(--dev-fg-color);
 }
 .devinux.persian-calendar > label {
   justify-self: flex-end;
@@ -80,6 +84,7 @@
   overflow: hidden;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
   direction: rtl;
+  z-index: 999999;
 }
 .devinux.calendar .control label.btn {
   padding: 10px;
@@ -101,8 +106,15 @@
   justify-content: center;
   align-items: center;
 }
+.devinux.calendar .control select {
+  padding: 2px 5px !important;
+  margin: 0px !important;
+  border: var(--dev-border);
+  border-radius: 5px;
+}
 .devinux.calendar .center.month {
   font-size: 0px;
+  text-align: start;
 }
 .devinux.calendar .center.month label {
   display: inline-block;
@@ -113,6 +125,7 @@
   align-items: center;
   padding: 10px 0px;
   cursor: pointer;
+  border-radius: 0px;
 }
 .devinux.calendar .center.month label.day:hover {
   background-color: var(--dev-bg-color2);
@@ -120,16 +133,32 @@
 .devinux.calendar .center.month label[data-day-index="5"] {
   background-color: rgba(255, 0, 0, 0.1);
 }
+.devinux.calendar .center.month label.header {
+  background-color: var(--dev-bg-color1);
+}
 .devinux.calendar .center.month label.today {
   background-color: var(--dev-bg-harm);
   color: var(--dev-fg-harm);
-}
-.devinux.calendar .center.month label.header {
-  background-color: var(--dev-bg-color1);
+  border-radius: 5px;
 }
 .devinux.calendar .center.month label.selected {
   background-color: var(--dev-bg-harm1);
   color: var(--dev-fg-harm);
+  border-radius: 5px;
+}
+.devinux.calendar .center.month label.today, .devinux.calendar .center.month label.selected {
+  position: relative;
+  overflow: hidden;
+}
+.devinux.calendar .center.month label.today::before, .devinux.calendar .center.month label.selected::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
+}
+.devinux.calendar .center.month label.disable {
+  opacity: 0.3;
+  pointer-events: none;
 }
 .devinux.calendar .times {
   gap: 5px;
@@ -152,6 +181,8 @@
   border: 0px;
   text-align: center;
   padding: 5px;
+  background-color: var(--dev-bg-color1);
+  color: var(--dev-fg-color);
 }
 .devinux.calendar .menu:has(*) {
   padding: 5px;

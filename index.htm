@@ -11,17 +11,180 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./Code/dpc.js"></script>
+    <style>
+        :root{ --pad : 20px; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: small; text-align: center; display: block; background-color: var(--dev-bg-color); color:var(--dev-fg-color); }
+        body:not(.night) {
+--dev-bg-color: #FFF;
+--dev-bg-color1: #EEE;
+--dev-bg-color2: #DDD;
+--dev-bg-color3: #CCC;
+--dev-fg-color: #333;
+--dev-bg-harm: #E00;
+--dev-bg-harm1: orange;
+--dev-fg-harm: #FFF;
+--dev-border-color: rgba(0,0,0,0.1);
+--dev-border-width: 1px;
+--dev-border-style: solid;
+--dev-border: var(--dev-border-width) var(--dev-border-style) var(--dev-border-color);
+--dev-font-size: small;            
+        }
+        body.night {
+--dev-bg-color: #1d1d1b;
+--dev-bg-color1: #2d2d2b;
+--dev-bg-color2: #3d3d3b;
+--dev-bg-color3: #4d4d4b;
+--dev-fg-color: #EEE;
+--dev-bg-harm: #E00;
+--dev-bg-harm1: orange;
+--dev-fg-harm: #FFF;
+--dev-border-color: rgba(100,100,100,0.2);
+--dev-border-width: 1px;
+--dev-border-style: solid;
+--dev-border: var(--dev-border-width) var(--dev-border-style) var(--dev-border-color);
+--dev-font-size: small;            
+        }
+        .page { 
+            position: fixed; top:0px; left:0px; width:100%; height:100%; text-align: start; display: inline-grid; 
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: auto 1fr;
+            grid-template-areas:
+                "header header"
+                "aside article";
+        }
+        .page > header { grid-area: header; border-bottom: 1px solid var(--dev-border-color);  background-image: linear-gradient(270deg,rgba(0,0,0,0),rgba(0,0,0,0.1)); }
+        .page > header .center { padding:var(--pad);}
+        .page > header .end { padding:0px var(--pad);}
+        .page > header h1 { margin: 0px; padding :0px; font-size: large; margin-bottom: -5px; font-weight: bolder; }
+        .page > header h2 { margin: 0px; padding :0px; font-size: small; opacity: 0.5; font-weight: lighter; }
+        .page > header .btn {  border: 0px; background-color: transparent; color:var(--dev-fg-color); width: 64px; aspect-ratio: 1/1; margin: 0px; padding:0px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer;  text-decoration: none;}
+        .page > header .btn:hover  { color:var(--dev-bg-harm); }
+        .page > header .btn i { font-size:24px; }
+        .page > article { grid-area: article; overflow: auto; scroll-behavior: smooth; }
+        .page > aside { grid-area: aside;  overflow-y: auto; border-inline-end: 1px solid var(--dev-border-color); }
+        .page > aside > .sticky {  position: sticky ; top:0px; }
+        .page > aside a { display: block; padding:5px 10px; text-decoration: none; color:var(--dev-fg-color);  }
+        .page > aside a:hover { color:var(--dev-bg-harm); }
+        .demo { width:250px;}
+        .pre {   background-color: rgba(0,0,0,0.1); border-radius: 5px; border:1px solid var(--dev-border-color); overflow: auto; padding:10px;}
+        pre { margin: 0px;  margin: 0px; line-height: 20px; font-size: large; color:maroon; }
+        .section { padding: calc(2 * var(--pad));}
+        .section:hover { background-color: rgba(0,0,0,0.03);}
+        .section:not(:last-of-type) { border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .section  h4 { margin: 0px; font-weight: 900; font-size: x-large; }
+        .section  h6 { margin: 0px; font-weight: lighter; font-size: small; margin: var(--pad) 0px; }
+        .section > .flex {gap : var(--pad); }
+    </style>
 </head>
 <body>
-    <div style="position: absolute; top:150px; height:350px; width:100px; overflow: hidden;">
-        <input type="text" value="" />
+    <div class="page">
+        <header class="devinux no-border ">
+            <div class="flex cols">
+                <div class="center">
+                    <h1>Devinux Persian Calendar Component</h1>
+                    <h2>a javascipt component , asy use and profesional features</h2>
+                </div>
+                <div class="end" style="display: flex; justify-content: center; align-items: center;">
+                    <button class="btn" onclick="$('body').toggleClass('night');" type="button"><i class="fad fa-sun"></i></button>
+                    <a class="btn" href="https://github.com/MajidSabzalian/DevinuxPersianCalendar" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </header>
+        <aside>
+            <div class="sticky"></div>
+        </aside>
+        <article>
+            <div class="content devinux no-border"></div>
+        </article>
     </div>
-    
     <script>
-    $(document).ready(()=>{
-        $(`input`).each((i,e) => { new DevinuxPersianCalendar().init(e); });
-        $(`input`).eq(0).focus();
-    });
+        
+        let demo = [
+            {title : 'pre initial' , desc : `represents the simplest example of using the Devinux Persian Calendar. It attaches the calendar to the element with the id #fi and shows the default behavior of the widget without any extra configuration. This example is designed to give you a clear starting point: when the page loads, the calendar appears inside the target element, allowing you to confirm that the library is working correctly. From here, you can build on this initial setup by adding custom options, adjusting styles, or handling events to suit your application’s needs.` , script : `<!-- insert tag on head -->create link rel="stylesheet" href="./Code/dpc.css"
+create script src="./Code/dpc.js"
+` , html : ``},
+            {title : 'first initial' , desc : `First Initial is the starting point for working with the Devinux Persian Calendar. It attaches the calendar to the element identified by #fi and displays the default calendar view. This example is meant to confirm that the calendar loads correctly and behaves as expected in its simplest form. Once you see the calendar appear, you can extend this basic initialization with additional options such as localization, styling, or custom event handling.` , script : `new DevinuxPersianCalendar().init('#fi');` , html : `<input type="text" id="fi" />`},
+            {title : 'only date' , desc : `Only Date demonstrates how the Devinux Persian Calendar can be used in its simplest mode, focusing exclusively on selecting a date. In this setup, the calendar is attached to the target element and allows the user to pick a single day from the calendar view. No time or additional fields are shown, making it ideal for scenarios where only the date is required, such as birthdays, deadlines, reservations, or any field that should capture just a calendar day. This example highlights the default, lightweight usage of the calendar without extra options or complex configuration, serving as a clear reference point before moving on to more advanced features like time selection, range picking, or custom formatting.` , script : `new DevinuxPersianCalendar()
+    .setOption({
+        timeEditor : false
+    }).init('#od');` , html : `<input type="text" id="od" />`},
+            {title : 'only time' , desc : `Only Time is a mode of the Devinux Persian Calendar that focuses solely on selecting a time value without including a date. In this setup, the calendar widget is limited to a time picker, allowing users to choose hours and minutes directly. This configuration is useful in situations where recording or scheduling a specific time is important, but the date itself is either fixed or irrelevant—such as setting daily reminders, working hours, alarms, or appointment slots within a predefined day. By isolating the time selection, it provides a clean and straightforward interface, ensuring that users can focus exclusively on entering the correct time without distractions from the calendar view.` , script : `new DevinuxPersianCalendar()
+    .setOption({
+        dateEditor : false
+    }).init('#ot');` , html : `<input type="text" id="ot" />`},
+            {title : 'date and time' , desc : `Date and Time combines both the calendar and time picker features of the Devinux Persian Calendar into a single, integrated component. In this mode, users can select a specific date and then refine their choice by setting the exact hour and minute. This configuration is especially useful for applications that require precise scheduling, such as booking appointments, creating events, setting deadlines, or logging activities. By presenting both date and time in one interface, it ensures accuracy and convenience, eliminating the need for multiple separate inputs. This example highlights the full capability of the calendar widget, showing how it can handle complete datetime values in a user-friendly way.` , script : `new DevinuxPersianCalendar()
+    .setOption({
+        timeEditor : true,
+        dateEditor : true
+    }).init('#dat');` , html : `<input type="text" id="dat" />`},
+            {title : 'custom result' , desc : `Custom Result demonstrates how the Devinux Persian Calendar can be configured to return a customized output instead of the default date or time format. In this mode, you can define the exact format, structure, or data type that the calendar produces when a user makes a selection. This is useful for applications that require specific formatting for backend processing, integration with other systems, or displaying results in a particular style. By using a custom result configuration, developers have full control over how the selected value is represented, enabling scenarios such as combining date and time into a single string, converting to a different calendar system, or generating structured objects for further processing.` , script : `new DevinuxPersianCalendar()
+    .setOption({
+        valueSetter : (e) => e.year + '-' + e.month + '-' + e.day + ' ' + e.hour + '-' + e.minute + '-' + e.second
+    }).init('#cr');` , html : `<input type="text" id="cr" />`},
+            {title : 'diffrent input' , desc : `Different Input illustrates how the Devinux Persian Calendar can be attached to various types of input elements beyond the default text field. This mode allows the calendar to work with custom input fields, buttons, or even container elements, providing flexibility in how the calendar is triggered and where the selected value is displayed. It is useful when integrating the calendar into complex forms, custom UI components, or non-standard layouts where the default input approach is not suitable. By supporting different inputs, the calendar can adapt to a wide range of user interfaces, ensuring consistent functionality while allowing developers to maintain their preferred design and interaction patterns.` , script : `new DevinuxPersianCalendar()
+    .setOption({
+        onSelect : (e) => { $('#dir').val(e.getDate()); }
+    }).init('#di');` , html : `<input type="text" id="di" /><br/><input type="text" id="dir" />`},
+            {title : 'opan and close handler' , desc : `Open and Close Handler demonstrates how to attach custom behavior to the Devinux Persian Calendar when it is opened or closed. This mode allows developers to run specific code at the moment the calendar becomes visible or is hidden, enabling dynamic interactions such as updating other parts of the UI, validating input, logging user activity, or triggering animations. By using open and close handlers, you gain precise control over the calendar’s lifecycle events, making it easier to integrate the widget into complex applications while ensuring a responsive and interactive user experience.` , script : `new DevinuxPersianCalendar()
+    .setOption({
+        onOpen : () => { $('.ochr').html('open'); },
+        onClose : () => { $('.ochr').html('close'); }
+    }).init('#och');` , html : `<input type="text" id="och" /><div class="ochr"></div>`},
+            {title : 'Option Model' , desc : `` , script : `
+{
+    position: "abs", // fix
+    autoPosition: true,
+    calendar: "persian", //'gregorian',
+    week : 'شیدسچپج'.split(''),
+    valueSetter : (d)=>'{d.year}/{d.month}/{d.day} {d.hour}:{d.minute}:{d.second}',
+    formatter: (v) => DevinuxPublicApi.Api.toPersianNumber(v),
+    onSelect: (d) => {},
+    onSet: (d) => {},
+    onOpen: (d) => {},
+    onClose: (d) => {},
+    closeAfterSelect : false,
+    min: new Date(1950, 1, 1),
+    max: new Date(2050, 1, 1),
+    selectionMode: "range", // 'single'
+    yearUp:     '&lt;label class=&quot;btn&quot;&gt;&lt;i class=&quot;fal fa-chevrons-left&quot;&gt;&lt;/i&gt;&lt;/label&gt;',
+    yearDown:   '&lt;label class=&quot;btn&quot;&gt;&lt;i class=&quot;fal fa-chevrons-right&quot;&gt;&lt;/i&gt;&lt;/label&gt;',
+    monthUp:    '&lt;label class=&quot;btn&quot;&gt;&lt;i class=&quot;fal fa-chevron-left&quot;&gt;&lt;/i&gt;&lt;/label&gt;',
+    monthDown:  '&lt;label class=&quot;btn&quot;&gt;&lt;i class=&quot;fal fa-chevron-right&quot;&gt;&lt;/i&gt;&lt;/label&gt;',
+    today:      '&lt;label class=&quot;btn&quot;&gt;&lt;i class=&quot;fal fa-check&quot;&gt;&lt;/i&gt;&lt;span&gt;امروز&lt;/span&gt;&lt;/label&gt;',
+    showButton: '&lt;label class=&quot;btn end&quot;&gt;&lt;i class=&quot;fad fa-calendar&quot;&gt;&lt;/i&gt;&lt;/label&gt;',
+    width : '300px',
+    dateEditor : true , 
+    timeEditor : true ,
+    showOnFocus : true ,
+    showOnButton : true
+}            
+            ` , html : ``},
+        ]
+        let c = $('.content');
+        let a = $('aside');
+        demo.forEach(t => {
+            let id = 'cnt-'+ Math.floor(Math.random() * 10000000);
+            a.append(`<a href="#${id}">${t.title}</a>`)
+            c.append(`
+<div class="section" id="${id}">
+    <h4>${t.title}</h4>
+    ${t.desc.trim().length > 0 ? `<h6>${t.desc}</h6>` : ``}
+    <div class="flex cols">
+    ${t.html.trim().length > 0 ? `
+        <div class="start demo">
+            <div>
+                ${t.html}
+            </div>
+        </div>` : ``}
+        <div class="center pre">
+            <pre>${t.script.trim()}</pre>
+        </div>
+    </div>
+</div>
+`);
+            if (!t.script.trim().startsWith('<!--')) eval(t.script);
+        })
     </script>
 </body>
 </html>

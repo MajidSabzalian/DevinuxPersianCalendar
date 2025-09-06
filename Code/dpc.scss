@@ -15,8 +15,8 @@
 }
 
 .devinux{
-    * {box-sizing: border-box;}
-    border: var(--dev-border);
+    & , * {box-sizing: border-box; transition: all ease .3s;}
+    &:not(.no-border) { border: var(--dev-border); }
      font-family: iran-sans , iransans,arial, tahoma;
      font-weight: normal;
     .flex {display:flex;
@@ -36,10 +36,10 @@
     } 
     &.persian-calendar{  display: inline-flex; flex-wrap: nowrap; flex-flow: row; direction: rtl; position: relative;  border-radius: 5px;
         & , * { transition: all ease .3s;}
-        & > input{ flex:1; background-color: transparent; border-radius: 0; border: 0; width: 100%; display: block; padding:5px; text-align: start; direction: ltr; outline: none; }
-        & > label { justify-self: flex-end; display: flex; justify-content: center; align-items: center;  aspect-ratio: 1/1; width: 32px; font-size: 16px; }
+        & > input{ flex:1; background-color: transparent; border-radius: 0; border: 0; width: 100%; display: block; padding:5px; text-align: start; direction: ltr; outline: none; color:var(--dev-fg-color); }
+        & > label { justify-self: flex-end; display: flex; justify-content: center; align-items: center;  aspect-ratio: 1/1; width: 32px; font-size: 16px;  }
     }
-    &.calendar { position: fixed;  background-color: var(--dev-bg-color); border:var(--dev-border); border-radius: 5px; overflow: hidden; box-shadow:0px 5px 5px rgba(0,0,0,0.1); direction: rtl;
+    &.calendar { position: fixed;  background-color: var(--dev-bg-color); border:var(--dev-border); border-radius: 5px; overflow: hidden; box-shadow:0px 5px 5px rgba(0,0,0,0.1); direction: rtl; z-index: 999999;
             .control { 
                 label.btn {  padding:10px; cursor: pointer;
                     display: flex; flex-flow: column;
@@ -47,20 +47,28 @@
                     span{ font-size: smaller;}
                 }
                 .date { display: flex; justify-content: center; align-items: center; }
+                select { padding: 2px 5px !important; margin: 0px !important; border: var(--dev-border); border-radius: 5px; }
             }
-            .center.month { font-size: 0px;
-                label{ display: inline-block; width:calc(100% / 7); font-size: small;  display: inline-flex; justify-content: center; align-items: center; padding:10px 0px; cursor: pointer;
+            .center.month { font-size: 0px; text-align: start;
+                $r : 5px;
+                label{ display: inline-block; width:calc(100% / 7); font-size: small;  display: inline-flex; justify-content: center; align-items: center; padding:10px 0px; cursor: pointer; border-radius: 0px;
                     &.day:hover { background-color: var(--dev-bg-color2);}
                     &[data-day-index="5"]{background-color: rgba(255,0,0,0.1);}
-                    &.today { background-color: var(--dev-bg-harm); color:var(--dev-fg-harm);}
                     &.header{ background-color: var(--dev-bg-color1);}
-                    &.selected { background-color: var(--dev-bg-harm1); color:var(--dev-fg-harm);}
+                    &.today { background-color: var(--dev-bg-harm); color:var(--dev-fg-harm); border-radius: $r; }
+                    &.selected { background-color: var(--dev-bg-harm1); color:var(--dev-fg-harm); border-radius: $r;}
+                    &.today ,
+                    &.selected { position: relative; overflow: hidden;
+                        &::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(45deg,rgba(255,255,255,0.0),rgba(255,255,255,0.2)); }
+                    }
+                    &.disable { opacity: 0.3; pointer-events: none;}
+
                 }
             }
             $mp:5px;
             .times{ gap:$mp; display: flex; flex-flow: row; padding:$mp; border: var(--dev-border); border-width: 1px 0px; direction: ltr;
                 strong{ display: block; text-align: center; font-size: var(--dev-font-size); font-weight: normal; }
-                input{ appearance: none; width: 100%; border: 0px; text-align: center; padding:$mp;}
+                input{ appearance: none; width: 100%; border: 0px; text-align: center; padding:$mp; background-color: var(--dev-bg-color1); color:var(--dev-fg-color); }
             }
             .menu:has(*) {
                 padding: 5px;
