@@ -163,7 +163,7 @@ class DevinuxPersianCalendar extends DevinuxPublicApi {
         let days = DevinuxPersianCalendar.getShamsiMonthDays( DevinuxPersianCalendar.jalaliToGregorian(this.year,this.month ,1).getDate());
         let fd = days[0];
         if (fd.dayIndex >= 0 && fd.dayIndex < 6) days = [...new Array((fd.dayIndex+1)).fill(undefined).map(m=>m), ...days];
-        if (__dev('body').find('.calendar#'+this.id).length == 0){
+        if (__dev('body').find('.devinux.calendar#'+this.id).length == 0){
             __dev('body').append(`<div id="${this.id}" class="devinux calendar flex fix rows" style="width: ${o && o.width ||'300px'}"></div>`)
         }
         let cld = __dev(`#${this.id}`);
@@ -268,7 +268,7 @@ class DevinuxPersianCalendar extends DevinuxPublicApi {
             this.#checkFirstValue();
             this.#print();
         }
-        __dev(`.calendar:not(#${this.id})`).remove();
+        __dev(`.devinux.calendar:not(#${this.id})`).remove();
         let change = ()=>{
             let rect = __dev(this.root).get(0).getBoundingClientRect();
             const vh = __dev(window).height() / 2 , vw = __dev(window).width() / 2;
